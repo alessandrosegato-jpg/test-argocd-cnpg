@@ -20,6 +20,12 @@ spec:
     syncOptions:
       - ServerSideApply=true
       - RespectIgnoreDifferences=true
+    retry:
+      limit: 5
+      backoff:
+        duration: 20s
+        factor: 2
+        maxDuration: 3m
     # Decommentare dopo il bootstrap iniziale (approvazione InstallPlan e DB healthy) per auto-sync continuo:
     automated:
       prune: false
