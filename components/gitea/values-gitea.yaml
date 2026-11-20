@@ -43,7 +43,7 @@ persistence:
   # allo scaling multi-replica una volta collegato Redis. (Se si passa a px-csi-db RWO per I/O Git più veloce,
   # sostituire il mount nel CronJob con VolumeSnapshot CSI / OADP.)
   accessModes:
-    - ReadWriteMany
+    - ReadWriteOnce
 
 # Route (solo HTTP/HTTPS). Il chart deriva server.DOMAIN e server.ROOT_URL da route.host.
 route:
