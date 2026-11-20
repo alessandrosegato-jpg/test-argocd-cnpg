@@ -25,7 +25,7 @@ resources:
 postgresql-ha:
   enabled: false
 postgresql:
-  enabled: true
+  enabled: false
 valkey-cluster:
   enabled: false
 valkey:
@@ -59,6 +59,8 @@ gitea:
     email: "admin@pippo.it"
 
   config:
+    database:
+      DB_TYPE: sqlite3
     server:
       # Una Route OpenShift non trasporta SSH: nasconde gli URL SSH di clone e non avvia il server SSH.
       # Gli sviluppatori clonano via HTTPS. Riabilitare solo insieme a LoadBalancer/NodePort su service.ssh.
