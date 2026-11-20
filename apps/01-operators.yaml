@@ -13,8 +13,8 @@ metadata:
 spec:
   project: platform
   source:
-    repoURL: "<GIT_REPO_URL>"
-    targetRevision: "<GIT_REVISION>"
+    repoURL: "https://github.com/alessandrosegato-jpg/test-argocd-cnpg.git"
+    targetRevision: "main"
     path: components/operators
   destination:
     server: https://kubernetes.default.svc
