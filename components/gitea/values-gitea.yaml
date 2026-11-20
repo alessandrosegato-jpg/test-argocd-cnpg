@@ -1,0 +1,75 @@
+openshift:
+  enabled: true
+
+replicaCount: 1
+
+# Singola replica + [session]/[cache]/[queue] locali su /data -> non eseguire mai due pod Gitea writer insieme
+strategy:
+  type: Recreate
+
+service:
+  http:
+    type: ClusterIP
+    port: 3000
+    clusterIP: ""
+
+resources:
+  requests:
+    cpu: 250m
+    memory: 512Mi
+  limits:
+    cpu: "1"
+    memory: 2Gi
+
+# I subchart Bitnami integrati e il pod di test restano disabilitati
+postgresql-ha:
+  enabled: false
+postgresql:
+  enabled: true
+valkey-cluster:
+  enabled: false
+valkey:
+  enabled: false
+test:
+  enabled: false
+
+persistence:
+  enabled: true
+  # Confermare/adattare i 10Gi in base alla crescita attesa di repository Git e oggetti LFS prima del deploy.
+  size: 5Gi
+  storageClass: lvms-vg1
+  # ReadWriteMany esplicito sulla StorageClass RWX consente al CronJob di backup S3 giornaliero di montare
+  # gitea-shared-storage in sola lettura da qualsiasi nodo mentre Gitea è attivo, e mantiene aperta la strada
+  # allo scaling multi-replica una volta collegato Redis. (Se si passa a px-csi-db RWO per I/O Git più veloce,
+  # sostituire il mount nel CronJob con VolumeSnapshot CSI / OADP.)
+  accessModes:
+    - ReadWriteMany
+
+# Route (solo HTTP/HTTPS). Il chart deriva server.DOMAIN e server.ROOT_URL da route.host.
+route:
+  enabled: true
+  host: gitea.apps.openshift-ai-lab01.ocp-ai.corp.sourcesense.com
+  tls:
+    termination: edge
+    insecureEdgeTerminationPolicy: Redirect
+
+gitea:
+  admin:
+    createSecret: true
+    email: "admin@pippo.it"
+
+  config:
+    server:
+      # Una Route OpenShift non trasporta SSH: nasconde gli URL SSH di clone e non avvia il server SSH.
+      # Gli sviluppatori clonano via HTTPS. Riabilitare solo insieme a LoadBalancer/NodePort su service.ssh.
+      DISABLE_SSH: true
+      START_SSH_SERVER: false
+      SSH_PORT: 22
+      SSH_LISTEN_PORT: 2222
+
+
+
+# L'immagine proviene da docker.gitea.com. Se l'egress è bloccato o soggetto a rate-limit,
+# fare il mirror interno di gitea:1.27.0-rootless e impostare ad es.:
+# global:
+#   imageRegistry: <your-internal-registry>
