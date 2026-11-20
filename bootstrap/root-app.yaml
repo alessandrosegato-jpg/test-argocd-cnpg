@@ -8,7 +8,7 @@ metadata:
   name: app-cluster-root
   namespace: openshift-gitops
 spec:
-  project: platform
+  project: default
   source:
     repoURL: "https://github.com/alessandrosegato-jpg/test-argocd-cnpg.git"
     targetRevision: "main"
