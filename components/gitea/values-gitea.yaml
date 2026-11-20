@@ -36,7 +36,7 @@ test:
 persistence:
   enabled: true
   # Confermare/adattare i 10Gi in base alla crescita attesa di repository Git e oggetti LFS prima del deploy.
-  size: 5Gi
+  size: 6Gi
   storageClass: lvms-vg1
   # ReadWriteMany esplicito sulla StorageClass RWX consente al CronJob di backup S3 giornaliero di montare
   # gitea-shared-storage in sola lettura da qualsiasi nodo mentre Gitea è attivo, e mantiene aperta la strada
