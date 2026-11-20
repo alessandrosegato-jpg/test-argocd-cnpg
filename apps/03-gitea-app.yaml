@@ -9,7 +9,7 @@ metadata:
   annotations:
     argocd.argoproj.io/sync-wave: "1"
 spec:
-  project: platform
+  project: default
   sources:
     - repoURL: https://dl.gitea.com/charts/
       chart: gitea

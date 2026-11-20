@@ -11,7 +11,7 @@ metadata:
   annotations:
     argocd.argoproj.io/sync-wave: "1"
 spec:
-  project: platform
+  project: default
   source:
     repoURL: "https://github.com/alessandrosegato-jpg/test-argocd-cnpg.git"
     targetRevision: "main"

@@ -1,6 +1,6 @@
 # App-of-Apps root: gestisce tutte le Argo CD Application presenti in apps/.
 # Sostituire i placeholder repoURL e targetRevision (es. main) PRIMA di applicare.
-# Nota: su hcpt4321765 il progetto per deploy locali (https://kubernetes.default.svc) è "platform"
+# Nota: su hcpt4321765 il progetto per deploy locali (https://kubernetes.default.svc) è "default"
 # (il progetto "default" è riservato ai cluster spoke remoti via ACM cluster-proxy).
 apiVersion: argoproj.io/v1alpha1
 kind: Application
