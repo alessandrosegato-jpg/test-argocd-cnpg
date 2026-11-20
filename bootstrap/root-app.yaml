@@ -19,6 +19,7 @@ spec:
   syncPolicy:
     syncOptions:
       - ServerSideApply=true
+      - RespectIgnoreDifferences=true
     # Decommentare dopo il bootstrap iniziale (approvazione InstallPlan e DB healthy) per auto-sync continuo:
     automated:
       prune: false
